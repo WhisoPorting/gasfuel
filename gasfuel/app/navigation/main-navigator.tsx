@@ -23,6 +23,7 @@ import { WelcomeScreen, DemoScreen } from "../screens"
 export type PrimaryParamList = {
   welcome: undefined
   demo: undefined
+  setup: undefined
 }
 
 // Documentation: https://reactnavigation.org/docs/stack-navigator/
