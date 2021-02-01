@@ -41,6 +41,7 @@
     "react": "16.14.0",
     "react-native": "^0.63.3",
     "react-native-gesture-handler": "1.8.0",
+    "react-native-input-spinner": "^1.4.8",
     "react-native-keychain": "6.2.0",
     "react-native-safe-area-context": "3.1.8",
     "react-native-screens": "~2.13.0",
