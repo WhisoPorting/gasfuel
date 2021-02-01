@@ -1,23 +1,29 @@
 import React from "react"
-import { Image, ImageStyle, Platform, TextStyle, View, ViewStyle } from "react-native"
+import { TextStyle, View, ViewStyle } from "react-native"
 import { useNavigation } from "@react-navigation/native"
 import { observer } from "mobx-react-lite"
-import { BulletItem, Button, Header, Text, Screen, Wallpaper } from "../../components"
+import { Button, Header, Text, Screen, Wallpaper } from "../../components"
 import { color, spacing } from "../../theme"
 import { Api } from "../../services/api"
 import { save } from "../../utils/storage"
-// export const logoIgnite = require("./logo-ignite.png")
-// export const heart = require("./heart.png")
+import InputSpinner from "react-native-input-spinner"
 
 const FULL: ViewStyle = { flex: 1 }
 const CONTAINER: ViewStyle = {
+  alignItems: "center",
   backgroundColor: color.transparent,
   paddingHorizontal: spacing[4],
+}
+const LITERSINPUT: ViewStyle = {
+  marginVertical: spacing[4],
 }
 const DEMO: ViewStyle = {
   paddingVertical: spacing[4],
   paddingHorizontal: spacing[4],
   backgroundColor: "#5D2555",
+}
+const SPINNERNUMBERCONTAINER: ViewStyle = {
+  height: "20%",
 }
 const BOLD: TextStyle = { fontWeight: "bold" }
 const DEMO_TEXT: TextStyle = {
@@ -25,17 +31,13 @@ const DEMO_TEXT: TextStyle = {
   fontSize: 13,
   letterSpacing: 2,
 }
-const HEADER: TextStyle = {
-  paddingTop: spacing[3],
-  paddingBottom: spacing[5] - 1,
-  paddingHorizontal: 0,
-}
 const LABELS: TextStyle = {
   ...BOLD,
   fontSize: 17,
   lineHeight: 15,
   textAlign: "center",
   letterSpacing: 1.5,
+  color: "#FFFFFF",
 }
 const TITLE: TextStyle = {
   ...BOLD,
@@ -44,47 +46,19 @@ const TITLE: TextStyle = {
   textAlign: "center",
   marginBottom: spacing[5],
 }
-const TAGLINE: TextStyle = {
-  color: "#BAB6C8",
-  fontSize: 15,
-  lineHeight: 22,
-  marginBottom: spacing[4] + spacing[1],
-}
-const IGNITE: ImageStyle = {
-  marginVertical: spacing[6],
-  alignSelf: "center",
-}
-const LOVE_WRAPPER: ViewStyle = {
-  flexDirection: "row",
-  alignItems: "center",
-  alignSelf: "center",
-}
-const LOVE: TextStyle = {
-  color: "#BAB6C8",
-  fontSize: 15,
-  lineHeight: 22,
-}
-const HEART: ImageStyle = {
-  marginHorizontal: spacing[2],
-  width: 10,
-  height: 10,
-  resizeMode: "contain",
-}
-const HINT: TextStyle = {
-  color: "#BAB6C8",
+const HEADER_TITLE: TextStyle = {
+  ...BOLD,
   fontSize: 12,
-  lineHeight: 15,
-  marginVertical: spacing[2],
+  textAlign: "center",
+  letterSpacing: 1.5,
 }
-
-const platformCommand = Platform.select({
-  ios: "Cmd + D",
-  android: "Cmd/Ctrl + M",
-})
 
 export const SetupScreen = observer(function Setup() {
   const navigation = useNavigation()
-  const goBack = () => navigation.goBack()
+  const goBack = () => {
+    console.log("Go back --->>")
+    // navigation.goBack()
+  }
 
   const demoReactotron = React.useMemo(
     () => async () => {
@@ -129,30 +103,49 @@ export const SetupScreen = observer(function Setup() {
   return (
     <View style={FULL}>
       <Wallpaper />
-      <Screen style={CONTAINER} preset="scroll" backgroundColor={color.transparent}>
+      <Header leftIcon="back" onLeftPress={goBack} titleStyle={HEADER_TITLE} />
+      <Screen style={CONTAINER} preset="fixed" backgroundColor={color.transparent}>
         <Text style={TITLE} preset="header" tx="setupScreen.title" />
         <Text style={LABELS} tx="setupScreen.gasCapacity" />
-        {/* <Text style={TAGLINE} tx="demoScreen.tagLine" />
-        <BulletItem text="Integrated here, Navigation with State, TypeScript, Storybook, Solidarity, and i18n." />
-        <BulletItem
-          text={`To run Storybook, press ${platformCommand} or shake the device to show the developer menu, then select "Toggle Storybook"`}
-        />
-        <BulletItem text="Load up Reactotron!  You can inspect your app, view the events, interact, and so much more!" />
-        <View>
-          <Button
-            style={DEMO}
-            textStyle={DEMO_TEXT}
-            tx="demoScreen.reactotron"
-            onPress={demoReactotron}
+        <View style={SPINNERNUMBERCONTAINER}>
+          <InputSpinner
+            style={LITERSINPUT}
+            inputStyle={LABELS}
+            min={1}
+            colorLeft={"#f04048"}
+            colorRight={"#40c5f4"}
+            rounded={false}
+            onChange={(num) => {
+              console.log(num)
+            }}
+            onDecrease={() => {
+              console.log("Drecrement -->")
+            }}
           />
-          <Text style={HINT} tx={`demoScreen.${Platform.OS}ReactotronHint`} />
         </View>
-        <Image source={logoIgnite} style={IGNITE} />
-        <View style={LOVE_WRAPPER}>
-          <Text style={LOVE} text="Made with" />
-          <Image source={heart} style={HEART} />
-          <Text style={LOVE} text="by Infinite Red" />
-        </View> */}
+        <Text style={LABELS} tx="setupScreen.gaugeCapacity" />
+        <View style={SPINNERNUMBERCONTAINER}>
+          <InputSpinner
+            style={LITERSINPUT}
+            inputStyle={LABELS}
+            min={1}
+            colorLeft={"#f04048"}
+            colorRight={"#40c5f4"}
+            rounded={false}
+            onChange={(num) => {
+              console.log(num)
+            }}
+            onDecrease={() => {
+              console.log("Drecrement -->")
+            }}
+          />
+        </View>
+        <Button
+          style={DEMO}
+          textStyle={DEMO_TEXT}
+          tx="setupScreen.accept"
+          onPress={demoReactotron}
+        />
       </Screen>
     </View>
   )
