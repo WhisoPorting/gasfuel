@@ -78,6 +78,8 @@ npm-debug.*
 *.orig.*
 web-build/
 
+android/app/src/main/java/com/gasfuel/generated/BasePackageList.java
+
 # Configurations
 app/config/env.*.js
 !env.js
